@@ -5,7 +5,9 @@ function Gameboard() {
     if(board[position] === ""){
         board[position] = choice
         console.log(typeof(checkWinner(choice)))
-        if (typeof checkWinner(choice) === "string") return("Tie")
+        if (typeof checkWinner(choice) === "string") { 
+          body.style["background-color"] = "red"
+          return("Tie")}
         else if (typeof checkWinner(choice) === "object") {
                 body.style["background-color"] = "green"
                 return("🏆  Player " + choice + " is the Winner !")
@@ -84,7 +86,7 @@ function Gameboard() {
             btn.disabled="true"
           })
         }
-        if(text.textContent === "Tie") body.style["background-color"] = "red"
+
         toedit.style["font-size"]= "120px"
         button = document.getElementsByName("btn"+xbutton.id)
         button.forEach(btn => {
@@ -124,11 +126,16 @@ function Gameboard() {
       })
     })
     restart.addEventListener("click",() => {
+      board = ["", "", "", "", "", "", "", "", ""]
       body.style["background-color"]= "white"
       start.classList.remove("selected")
       restart.classList.add("selected")
-      let container = display.querySelectorAll("p")
+      let container = display.querySelectorAll("button","div")
       container.forEach(child => {
+        child.disabled = false
+      })
+      let container2 = display.querySelectorAll("p")
+      container2.forEach(child => {
         child.textContent= ""
         
       })
