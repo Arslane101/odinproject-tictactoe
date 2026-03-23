@@ -1,14 +1,18 @@
 function Gameboard() {
   let board = ["", "", "", "", "", "", "", "", ""]
   const update = (choice,position) => {
+    let body = document.querySelector("body")
     if(board[position] === ""){
         board[position] = choice
         console.log(typeof(checkWinner(choice)))
         if (typeof checkWinner(choice) === "string") return("Tie")
-        else if (typeof checkWinner(choice) === "object") return("🏆  Player " + choice + " is the Winner !")
-    }
+        else if (typeof checkWinner(choice) === "object") {
+                body.style["background-color"] = "green"
+                return("🏆  Player " + choice + " is the Winner !")
+              }
     
   }
+}
   const checkWinner = (value) => {
     let positions = [[0,1,2],[3,4,5],[6,7,8],[0,4,8],[2,4,6],[0,3,6],[1,4,7],[2,5,8]]
     for (const elt of positions){
@@ -20,6 +24,8 @@ function Gameboard() {
   }
   
   const displayController = () => {
+    let body = document.querySelector("body")
+    
     const display = document.querySelector("#board")
     const paragraph = document.querySelector("#score")
     const menu = document.createElement("div") 
@@ -36,7 +42,7 @@ function Gameboard() {
     menu.appendChild(restart)
     paragraph.appendChild(menu)
     
-    texte.textContent = "Welcome to Tic Tac Toe ! Press \u{25B7} to start "
+    texte.textContent = "Welcome to Tic Tac Toe! Press \u{25B7} to start "
     texte.style = "font-size:24px; font-weight: bold"
 
     display.style.flex = "1 1 calc( 100% /"+"3"+")"
@@ -78,6 +84,7 @@ function Gameboard() {
             btn.disabled="true"
           })
         }
+        if(text.textContent === "Tie") body.style["background-color"] = "red"
         toedit.style["font-size"]= "120px"
         button = document.getElementsByName("btn"+xbutton.id)
         button.forEach(btn => {
@@ -117,7 +124,8 @@ function Gameboard() {
       })
     })
     restart.addEventListener("click",() => {
-      
+      body.style["background-color"]= "white"
+      start.classList.remove("selected")
       restart.classList.add("selected")
       let container = display.querySelectorAll("p")
       container.forEach(child => {
