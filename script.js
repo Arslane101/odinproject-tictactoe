@@ -5,7 +5,7 @@ function Gameboard() {
         board[position] = choice
         console.log(typeof(checkWinner(choice)))
         if (typeof checkWinner(choice) === "string") return("Tie")
-        else if (typeof checkWinner(choice) === "object") return("Player " + choice + " is the Winner !")
+        else if (typeof checkWinner(choice) === "object") return("🏆  Player " + choice + " is the Winner !")
     }
     
   }
@@ -22,9 +22,23 @@ function Gameboard() {
   const displayController = () => {
     const display = document.querySelector("#board")
     const paragraph = document.querySelector("#score")
+    const menu = document.createElement("div") 
+    menu.id = "buttonmenu"
+    let restart = document.createElement("button")
     let texte = document.createElement("p")
+    let start  = document.createElement("button")
+    start.id = "start"
+    restart.id = "restart"
+    start.textContent= "\u{25B7}"
+    restart.textContent = "\u{21BA}"
     paragraph.appendChild(texte)
-    texte.textContent = ""
+    menu.appendChild(start)
+    menu.appendChild(restart)
+    paragraph.appendChild(menu)
+    
+    texte.textContent = "Welcome to Tic Tac Toe ! Press \u{25B7} to start "
+    texte.style = "font-size:24px; font-weight: bold"
+
     display.style.flex = "1 1 calc( 100% /"+"3"+")"
     for (i=0;i<board.length;i++){
       let square = document.createElement("div")
@@ -36,6 +50,9 @@ function Gameboard() {
       square.appendChild(text)
       let xbutton = document.createElement("button")
       let obutton = document.createElement("button")
+      square.disabled= true 
+      xbutton.disabled = true
+      obutton.disabled = true
       xbutton.textContent = "X"
       xbutton.id = i
       obutton.id = i
@@ -48,8 +65,8 @@ function Gameboard() {
         obutton.hidden = false
      })
       square.addEventListener("mouseleave",() => {
-          if( xbutton.disabled != true )xbutton.hidden = true
-          if (obutton.disabled != true) obutton.hidden = true
+          xbutton.hidden = true
+          obutton.hidden = true
       })
       xbutton.addEventListener("click",()=> {
         toedit = document.querySelector("#position"+xbutton.id)
@@ -92,6 +109,25 @@ function Gameboard() {
       square.appendChild(divbutton)
       display.appendChild(square)
     }
+    start.addEventListener("click",() => {
+      let container = display.querySelectorAll("button","div")
+      start.classList.add("selected")
+      container.forEach(child => {
+        child.disabled = false
+      })
+    })
+    restart.addEventListener("click",() => {
+      
+      restart.classList.add("selected")
+      let container = display.querySelectorAll("p")
+      container.forEach(child => {
+        child.textContent= ""
+        
+      })
+      texte.textContent = ""
+
+
+    })
 
   }
   return {board,update,displayController}

@@ -1,3 +1,8 @@
+body {
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
 #board {
     display: grid;
     grid-template-columns: repeat(3,auto);
@@ -18,10 +23,24 @@
 
 }
 
+#score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 25px;
+}
+#buttonmenu {
+    display: flex;
+    gap:10px 
+}
 button {
     border: none;
     width: 50px;
-    height: 20px;
+    height: 30px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 p {
@@ -32,4 +51,13 @@ p {
 #buttondivs {
     display: flex;
     gap: 10px 
+}
+
+.selected {
+  background-color: #333;    /* Darker background */
+  color: white;              /* Light text for contrast */
+  border-color: #000;        /* Sharper border */
+  transform: scale(0.98);    /* Slightly smaller (pressed look) */
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3); /* Inner shadow */
+  outline: 2px solid orange; /* High visibility focus */
 }
