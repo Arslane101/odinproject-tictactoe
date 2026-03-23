@@ -1,0 +1,35 @@
+#board {
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    grid-template-rows: repeat(3,auto);
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+#square {
+    border: solid 1px black;
+    box-sizing: border-box;
+    aspect-ratio: 1/1;
+    display: flex;
+    width: 250px;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+
+}
+
+button {
+    border: none;
+    width: 50px;
+    height: 20px;
+}
+
+p {
+    margin: 0;
+    text-align: center;
+}
+
+#buttondivs {
+    display: flex;
+    gap: 10px 
+}
