@@ -4,7 +4,7 @@ function Gameboard() {
     let body = document.querySelector("body")
     if(board[position] === ""){
         board[position] = choice
-        console.log(typeof(checkWinner(choice)))
+        console.log(board)
         if (typeof checkWinner(choice) === "string") { 
           body.style["background-color"] = "red"
           return("Tie")}
@@ -46,7 +46,7 @@ function Gameboard() {
     
     texte.textContent = "Welcome to Tic Tac Toe! Press \u{25B7} to start "
     texte.style = "font-size:24px; font-weight: bold"
-
+    let j=0
     display.style.flex = "1 1 calc( 100% /"+"3"+")"
     for (i=0;i<board.length;i++){
       let square = document.createElement("div")
@@ -68,15 +68,75 @@ function Gameboard() {
       obutton.name = "btn"+i
       xbutton.hidden = true
       obutton.hidden = true
+      square.name= i
+      
       square.addEventListener("mousemove",() => {
-        xbutton.hidden = false
-        obutton.hidden = false
+        console.log(j)
+        toedit = document.querySelector("#position"+square.name)
+        if(toedit.textContent === ""){ 
+          if( j%2 === 0){
+          toedit.textContent = "X" 
+          toedit.style.color = "lightgrey"
+          toedit.style["font-size"]= "120px"
+
+        }
+        else {
+          toedit.textContent = "O"
+          toedit.style.color = "lightgrey"
+          toedit.style["font-size"]= "120px"
+         }
+        }
+
+
      })
       square.addEventListener("mouseleave",() => {
+          toedit = document.querySelector("#position"+square.name)
+          if(toedit.style.color !== "black") {
+            toedit.style.color = "black"
+            toedit.textContent = ""}
           xbutton.hidden = true
           obutton.hidden = true
       })
-      xbutton.addEventListener("click",()=> {
+      square.addEventListener("click",() => {
+        console.log(j)
+        square.disabled= false
+        toedit = document.querySelector("#position"+square.name)
+        if( j%2 === 0){
+          toedit.textContent = "X" 
+          toedit.style["font-size"]= "120px"
+          toedit.style.color = "black"
+          texte.textContent =  update(toedit.textContent,parseInt(obutton.id))
+          if(text.textContent === "Tie" && text.textContent !== "") {
+            let buttons = document.querySelectorAll("button")
+            buttons.forEach(btn => {
+              btn.disabled="true"
+            })
+          }
+          j+=1
+          square.disabled = true
+
+        }
+        else {
+          toedit.textContent = "O"
+          toedit.style["font-size"]= "120px"
+          toedit.style.color = "black"
+          square.disabled = true
+          texte.textContent =  update(toedit.textContent,parseInt(obutton.id))
+          if(text.textContent === "Tie" && text.textContent !== "") {
+            let buttons = document.querySelectorAll("button")
+            buttons.forEach(btn => {
+              btn.disabled="true"
+            })
+          }
+          j+=1
+          square.disabled = true
+
+         }
+
+        
+
+      })
+      /*xbutton.addEventListener("click",()=> {
         toedit = document.querySelector("#position"+xbutton.id)
         toedit.textContent = "X" 
         texte.textContent =  update(toedit.textContent,parseInt(obutton.id))
@@ -109,7 +169,7 @@ function Gameboard() {
           btn.disabled = "true"
           btn.hidden = "false"
         })
-      })
+      })*/
       obutton.textContent = "O"
       square.id="square"
       divbutton.id= "buttondivs"
@@ -140,6 +200,8 @@ function Gameboard() {
         
       })
       texte.textContent = ""
+      j=0
+      square.style.pointerEvents = "none"
 
 
     })
